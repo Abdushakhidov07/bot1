@@ -30,4 +30,15 @@ async def save_user(telegram_id, username, firstname, lastname):
         await conn.close()
         
 
-       
+async def get_all_user():
+    try:
+        conn = await connection()
+        users = await conn.fetch("""
+        select * from users                          
+        """)
+        return users
+    except Exception as error:
+        print(f"Error in get all users: {error}")
+    finally:
+        await conn.close()
+        
